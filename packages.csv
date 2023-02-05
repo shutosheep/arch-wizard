@@ -1,0 +1,8 @@
+base-devel,dwm
+git,dwm
+libx11,dwm
+libxft,dwm
+libxinerama,dwm
+webkit2gtk,dwm
+xorg-server,dwm
+xorg-xinit,dwm
