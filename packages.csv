@@ -1,8 +1,16 @@
+alacritty,dotfiles
 base-devel,dwm
 git,dwm
+lf,dotfiles
 libx11,dwm
 libxft,dwm
 libxinerama,dwm
+neovim,dotfiles
+newsboat,dotfiles
+sxhkd,dotfiles
+sxiv,dotfiles
 webkit2gtk,dwm
 xorg-server,dwm
 xorg-xinit,dwm
+zathura,dotfiles
+zathura-pdf-poppler,dotfiles

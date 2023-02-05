@@ -5,6 +5,7 @@ srcdir="$HOME/.local/src"
 dwmrepo="https://github.com/shutosheep/dwm.git"
 strepo="https://github.com/LukeSmithxyz/st.git"
 dmenurepo="https://github.com/LukeSmithxyz/dmenu.git"
+dotfilesrepo="https://github.com/shutosheep/dotfiles.git"
 
 x11setup() {
     echo "Setting up dwm..."
@@ -23,6 +24,37 @@ x11setup() {
     sudo make install -C "$srcdir/dwm"
     sudo make install -C "$srcdir/st"
     sudo make install -C "$srcdir/dmenu"
+}
+
+dotfilessetup() {
+    echo "Setting up dotfiles..."
+
+    echo "Installing dependencies..."
+
+    sudo pacman -Sy --noconfirm $(grep "dotfiles" packages.csv | cut -d "," -f 1)
+
+    # create srcdir if it doesn't exist
+    [ -d "$srcdir" ] || mkdir -p "$srcdir"
+
+    git clone "$dwmrepo" "$srcdir/dotfiles"
+
+    # create non-existing directory (to support linking files later)
+    for d in $(find $srcdir/dotfiles \
+        -path "$srcdir/dotfiles/.git" -prune -o \
+        -path "$srcdir/dotfiles/.github" -prune -o \
+        -type d -print); do
+        dd="$(echo $d | sed "s,$srcdir/dotfiles,$HOME,g")"
+        mkdir -p $dd
+    done
+
+    # linking files
+    for f in $(find $srcdir/dotfiles \
+        -path "$srcdir/dotfiles/.git" -prune -o \
+        -path "$srcdir/dotfiles/.github" -prune -o \
+        -type f -print); do
+        ff="$(echo "$f" | sed "s,$srcdir/dotfiles,$HOME,g")"
+        ln -sf "$f" "$ff"
+    done
 }
 
 gitsetup() {
@@ -47,6 +79,7 @@ arch-wizard:    Setup programs easily on fresh Arch Linux install
 
 commands:
     x11         Setup x11 desktop environment (dwm)
+    dotfiles    Deploy dotfiles
     git         Set git username and email
     help        Show this help message
 EOF
@@ -54,6 +87,7 @@ EOF
 
 case "$1" in
     x11) x11setup || exit 1 ;;
+    dotfiles) dotfilessetup || exit 1 ;;
     git) gitsetup || exit 1 ;;
     *) showhelp; exit 1 ;;
 esac
