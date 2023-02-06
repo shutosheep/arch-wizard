@@ -44,7 +44,8 @@ dotfilessetup() {
         -path "$srcdir/dotfiles/.github" -prune -o \
         -type d -print); do
         dd="$(echo $d | sed "s,$srcdir/dotfiles,$HOME,g")"
-        mkdir -p $dd
+        # create dd if it doesn't exist
+        [ -d "$dd" ] || mkdir -p "$dd"
     done
 
     # linking files
