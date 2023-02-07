@@ -36,7 +36,7 @@ dotfilessetup() {
     # create srcdir if it doesn't exist
     [ -d "$srcdir" ] || mkdir -p "$srcdir"
 
-    git clone "$dwmrepo" "$srcdir/dotfiles"
+    git clone "$dotfilesrepo" "$srcdir/dotfiles"
 
     # create non-existing directory (to support linking files later)
     for d in $(find $srcdir/dotfiles \
