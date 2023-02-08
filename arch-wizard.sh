@@ -5,6 +5,7 @@ srcdir="$HOME/.local/src"
 dwmrepo="https://github.com/shutosheep/dwm.git"
 strepo="https://github.com/LukeSmithxyz/st.git"
 dmenurepo="https://github.com/LukeSmithxyz/dmenu.git"
+dwmblocksrepo="https://github.com/shutosheep/dwmblocks.git"
 dotfilesrepo="https://github.com/shutosheep/dotfiles.git"
 
 x11setup() {
@@ -19,11 +20,13 @@ x11setup() {
 
     git clone "$dwmrepo" "$srcdir/dwm"
     git clone "$strepo" "$srcdir/st"
-    git clone "$dmenu" "$srcdir/dmenu"
+    git clone "$dmenurepo" "$srcdir/dmenu"
+    git clone "$dwmblocksrepo" "$srcdir/dwmblocks"
 
     sudo make install -C "$srcdir/dwm"
     sudo make install -C "$srcdir/st"
     sudo make install -C "$srcdir/dmenu"
+    sudo make install -C "$srcdir/dwmblocks"
 }
 
 dotfilessetup() {
