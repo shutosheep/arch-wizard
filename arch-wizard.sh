@@ -93,5 +93,6 @@ case "$1" in
     x11) x11setup || exit 1 ;;
     dotfiles) dotfilessetup || exit 1 ;;
     git) gitsetup || exit 1 ;;
+    help) showhelp ;;
     *) showhelp; exit 1 ;;
 esac
